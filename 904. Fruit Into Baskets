@@ -1,0 +1,24 @@
+class Solution {
+    public int totalFruit(int[] fruits) {
+        int left=0;
+        int maxFruits=0;
+        HashMap<Integer, Integer> basket=new HashMap<>();
+        for(int i=0;i<fruits.length;i++){
+            if(basket.containsKey(fruits[i])){
+                basket.put(fruits[i],basket.get(fruits[i])+1);
+            }
+            else{
+                basket.put(fruits[i],1);
+            }
+            while(basket.size()>2){
+                basket.put(fruits[left],basket.get(fruits[left])-1);
+                if(basket.get(fruits[left])==0){
+                    basket.remove(fruits[left]);
+                }
+                left++;
+            }
+            maxFruits=Math.max(maxFruits,i-left+1);
+        }
+        return maxFruits;
+    }
+}

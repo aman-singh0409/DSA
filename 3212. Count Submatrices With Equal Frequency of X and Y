@@ -1,0 +1,25 @@
+class Solution {
+    public int numberOfSubmatrices(char[][] grid) {
+        int n = grid[0].length;
+        int ans = 0;
+
+        int[][] col = new int[n][2];
+
+        for (char[] row : grid) {
+            int x = 0, y = 0;
+
+            for (int j = 0; j < n; j++) {
+                if (row[j] == 'X') x++;
+                else if (row[j] == 'Y') y++;
+
+                col[j][0] += x;
+                col[j][1] += y;
+
+                if (col[j][0] > 0 && col[j][0] == col[j][1]) {
+                    ans++;
+                }
+            }
+        }
+        return ans;
+    }
+}

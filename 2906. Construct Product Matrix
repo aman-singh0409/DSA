@@ -1,0 +1,29 @@
+class Solution {
+    public int[][] constructProductMatrix(int[][] grid) {
+        int mod = 12345;
+        int n = grid.length, m = grid[0].length;
+        int total = n * m;
+
+        int[][] res = new int[n][m];
+
+        long suffix = 1;
+        for (int k = total - 1; k >= 0; k--) {
+            int i = k / m;
+            int j = k % m;
+
+            res[i][j] = (int) suffix;
+            suffix = (suffix * grid[i][j]) % mod;
+        }
+
+        long prefix = 1;
+        for (int k = 0; k < total; k++) {
+            int i = k / m;
+            int j = k % m;
+
+            res[i][j] = (int)((res[i][j] * prefix) % mod);
+            prefix = (prefix * grid[i][j]) % mod;
+        }
+
+        return res;
+    }
+}

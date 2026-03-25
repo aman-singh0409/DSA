@@ -1,0 +1,33 @@
+class Solution {
+    public boolean canPartitionGrid(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+
+        long total = 0;
+        for (int[] row : grid) {
+            for (int val : row) {
+                total += val;
+            }
+        }
+
+        if (total % 2 != 0) return false;
+
+        long prefix = 0;
+
+        for (int i = 0; i < m - 1; i++) {
+            for (int val : grid[i]) {
+                prefix += val;
+            }
+            if (prefix * 2 == total) return true;
+        }
+
+        prefix = 0;
+        for (int j = 0; j < n - 1; j++) {
+            for (int i = 0; i < m; i++) {
+                prefix += grid[i][j];
+            }
+            if (prefix * 2 == total) return true;
+        }
+
+        return false;
+    }
+}

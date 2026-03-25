@@ -1,0 +1,13 @@
+import java.util.*;
+class Solution {
+    int countFreq(int[] arr, int target) {
+        // code here
+        ArrayList<Integer> list=new ArrayList<>();
+        for(int num : arr){
+            if(num==target){
+                list.add(num);
+            }
+        }
+        return list.size();
+    }
+}

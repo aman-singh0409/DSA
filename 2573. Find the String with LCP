@@ -1,0 +1,40 @@
+class Solution {
+    public String findTheString(int[][] lcp) {
+        int n = lcp.length;
+        char[] s = new char[n];
+
+        int i = 0;
+        for (char c = 'a'; c <= 'z'; c++) {
+            while (i < n && s[i] != 0) i++;
+            if (i == n) break;
+
+            for (int j = i; j < n; j++) {
+                if (lcp[i][j] > 0) {
+                    s[j] = c;
+                }
+            }
+        }
+
+        // check if all filled
+        for (char ch : s) {
+            if (ch == 0) return "";
+        }
+
+        // validate
+        for (int x = n - 1; x >= 0; x--) {
+            for (int y = n - 1; y >= 0; y--) {
+                if (s[x] == s[y]) {
+                    if (x == n - 1 || y == n - 1) {
+                        if (lcp[x][y] != 1) return "";
+                    } else {
+                        if (lcp[x][y] != lcp[x + 1][y + 1] + 1) return "";
+                    }
+                } else {
+                    if (lcp[x][y] > 0) return "";
+                }
+            }
+        }
+
+        return new String(s);
+    }
+}
